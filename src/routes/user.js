@@ -7,30 +7,25 @@ const base64 = require('base-64');
 const bcrypt = require('bcrypt')
 
 
-router.get('/AllUsers', getUsersHandler);
-router.post('/signup', signup);
-router.get('/signin', signin);
-router.put('/update', updateHandler);
-router.delete('/delete', deleteHandler);
 
 
 
 
-async function signup(req, res) {
+async function create(req, res) {
     let UserData = req.headers.authorization;
     let HeaderParts = UserData.split(' ');  
     let encodedcredit = HeaderParts.pop();  
     let decodedcredit = base64.decode(encodedcredit); 
-    let [userName, Password] = decodedcredit.split(':');
+    let [userName, userPassword] = decodedcredit.split(':');
   
     try {
         
-        let hashedPassword = await bcrypt.hash(Password, 10);
+        let hashedPassword = await bcrypt.hash(userPassword, 10);
       
         const userinfo = await User.create(
             {
                 userName: userName,
-               Password: hashedPassword
+               userPassword: hashedPassword
             }
             );
             res.status(200).json(userinfo);
@@ -40,17 +35,17 @@ async function signup(req, res) {
 
 
 
-    async function signin(req, res) {
+    async function getOne(req, res) {
         let userData = req.headers.authorization;
         let HeaderParts = userData.split(' '); 
         let encodedcredit = HeaderParts.pop();  
         let decodedcredit = base64.decode(encodedcredit); 
-        let [userName,Password] = decodedcredit.split(':'); 
+        let [userName,userPassword] = decodedcredit.split(':'); 
     
         try {
             let userinfo  = await User.getOne(userName);
           
-            const Valid = await bcrypt.compare(Password, userRecord.Password);
+            const Valid = await bcrypt.compare(userPassword, userRecord.userPassword);
             if (Valid) {
               res.status(200).json(userinfo);
             }
@@ -81,5 +76,12 @@ async function deleteHandler(req, res) {
 
     await User.delete(id);
 }
+
+
+router.get('/AllUsers', getUsersHandler);
+router.post('/signup', create);
+router.get('/signin', getOne);
+router.put('/update', updateHandler);
+router.delete('/delete', deleteHandler);
 
 module.exports = router;

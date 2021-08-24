@@ -10,14 +10,14 @@ class Collection {
         return allData;
     }
 
-    async signin(userName){
+    async getOne(userName){
         let Data  = await this.model.findOne({where : { userName }});
         return Data;
     }
 
-    async signup(modelData){
-        let newData = await this.model.create(modelData);
-        return newData;
+    async create(modelInfo){
+        let newRecord = await this.model.create(modelInfo);
+        return newRecord;
     }
 
     async update(modelData , userName){

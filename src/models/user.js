@@ -9,7 +9,7 @@ const Users = (sequelize , DataTypes) => sequelize.define('Users' , {
         allowNull : false
     },
 
-    Password : {
+    userPassword : {
         type : DataTypes.STRING,
         allowNull : false
     }
