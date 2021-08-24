@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt')
 
 
 
-async function signup(req, res) {
+async function create(req, res) {
     let UserData = req.headers.authorization;
     let HeaderParts = UserData.split(' ');  
     let encodedcredit = HeaderParts.pop();  
@@ -35,7 +35,7 @@ async function signup(req, res) {
 
 
 
-    async function signin(req, res) {
+    async function getOne(req, res) {
         let userData = req.headers.authorization;
         let HeaderParts = userData.split(' '); 
         let encodedcredit = HeaderParts.pop();  
@@ -79,8 +79,8 @@ async function deleteHandler(req, res) {
 
 
 router.get('/AllUsers', getUsersHandler);
-router.post('/signup', signup);
-router.get('/signin', signin);
+router.post('/signup', create);
+router.get('/signin', getOne);
 router.put('/update', updateHandler);
 router.delete('/delete', deleteHandler);
 

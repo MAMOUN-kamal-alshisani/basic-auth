@@ -10,23 +10,23 @@ class Collection {
         return allData;
     }
 
-    async signin(userName){
+    async getOne(userName){
         let Data  = await this.model.findOne({where : { userName }});
         return Data;
     }
 
-    async signup(modelData){
-        let newData = await this.model.create(modelData);
-        return newData;
+    async create(modelInfo){
+        let newRecord = await this.model.create(modelInfo);
+        return newRecord;
     }
 
-    async updateuser(modelData , userName){
+    async update(modelData , userName){
         let Data = await this.model.findOne({where : {userName}});
         let updatedData = await Data.update(modelData);
         return updatedData;
     }
 
-    async deleteuser(userName){
+    async delete(userName){
         await this.model.destroy({where : {userName}});
     }
 
