@@ -20,13 +20,13 @@ class Collection {
         return newData;
     }
 
-    async update(modelData , userName){
+    async updateuser(modelData , userName){
         let Data = await this.model.findOne({where : {userName}});
         let updatedData = await Data.update(modelData);
         return updatedData;
     }
 
-    async delete(userName){
+    async deleteuser(userName){
         await this.model.destroy({where : {userName}});
     }
 
