@@ -9,7 +9,6 @@
 
 
 
-##### Author : Ibrahim Khdairat 
 
 * [GitHub Repo Link](https://github.com/MAMOUN-kamal-alshisani/basic-auth)
 
